@@ -1,4 +1,11 @@
+package example.android
+
 include ':app'
+gradle.beforeProject { project ->
+    if (project.hasProperty("android")) {
+        project.android.namespace = project.getName().replace("-", ".")
+    }
+}
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 
