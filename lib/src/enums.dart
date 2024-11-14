@@ -39,15 +39,7 @@ extension ExtendedEmulation on StarEmulation {
 }
 
 ///Enum for Encoding
-enum StarEncoding {
-  USASCII,
-  Windows1252,
-  ShiftJIS,
-  Windows1251,
-  GB2312,
-  Big5,
-  UTF8
-}
+enum StarEncoding { USASCII, Windows1252, ShiftJIS, Windows1251, GB2312, Big5, UTF8 }
 
 ///Converts enum to String
 extension ExtendedEncoding on StarEncoding {

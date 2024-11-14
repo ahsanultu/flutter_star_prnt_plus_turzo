@@ -112,8 +112,7 @@ class PrinterResponseStatus {
   String toJson() => json.encode(toMap());
 
   ///Create from JsonString [PrinterResponseStatus]
-  factory PrinterResponseStatus.fromJson(String source) =>
-      PrinterResponseStatus.fromMap(json.decode(source));
+  factory PrinterResponseStatus.fromJson(String source) => PrinterResponseStatus.fromMap(json.decode(source));
 
   @override
   String toString() {

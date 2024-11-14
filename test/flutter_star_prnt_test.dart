@@ -1,20 +1,29 @@
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_star_prnt/flutter_star_prnt.dart';
+import 'package:flutter_star_prnt/flutter_star_prnt_platform_interface.dart';
+import 'package:flutter_star_prnt/flutter_star_prnt_method_channel.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
+class MockFlutterStarPrntPlatform
+    with MockPlatformInterfaceMixin
+    implements FlutterStarPrntPlatform {
+
+  @override
+  Future<String?> getPlatformVersion() => Future.value('42');
+}
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_star_prnt');
+  final FlutterStarPrntPlatform initialPlatform = FlutterStarPrntPlatform.instance;
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-      return '42';
-    });
+  test('$MethodChannelFlutterStarPrnt is the default instance', () {
+    expect(initialPlatform, isInstanceOf<MethodChannelFlutterStarPrnt>());
   });
 
-  tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(channel, null);
+  test('getPlatformVersion', () async {
+    FlutterStarPrnt flutterStarPrntPlugin = FlutterStarPrnt();
+    MockFlutterStarPrntPlatform fakePlatform = MockFlutterStarPrntPlatform();
+    FlutterStarPrntPlatform.instance = fakePlatform;
+
+    expect(await flutterStarPrntPlugin.getPlatformVersion(), '42');
   });
 }

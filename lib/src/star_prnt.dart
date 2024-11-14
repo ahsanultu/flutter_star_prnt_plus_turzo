@@ -1,20 +1,20 @@
 import 'dart:async';
+
 import 'package:flutter/services.dart';
-import 'package:flutter_star_prnt_plus/src/enums.dart';
-import 'package:flutter_star_prnt_plus/src/portInfo.dart';
-import 'package:flutter_star_prnt_plus/src/print_commands.dart';
-import 'package:flutter_star_prnt_plus/src/utilities.dart';
+import 'package:flutter_star_prnt/src/enums.dart';
+import 'package:flutter_star_prnt/src/port_info.dart';
+import 'package:flutter_star_prnt/src/print_commands.dart';
+import 'package:flutter_star_prnt/src/utilities.dart';
+
 import 'printer_response_status.dart';
 
 /// Class to handle printer communication
 class StarPrnt {
-  static const MethodChannel _channel =
-      const MethodChannel('flutter_star_prnt');
+  static const MethodChannel _channel = const MethodChannel('flutter_star_prnt');
 
   /// Scan for available printers. Have specify [StarPortType] of the printer
   static Future<List<PortInfo>> portDiscovery(StarPortType portType) async {
-    dynamic result =
-        await _channel.invokeMethod('portDiscovery', {'type': portType.text});
+    dynamic result = await _channel.invokeMethod('portDiscovery', {'type': portType.text});
     if (result is List) {
       return result.map<PortInfo>((port) {
         return PortInfo(port);
@@ -82,16 +82,16 @@ class StarPrnt {
     return result;
   }
 
-  // static Future<dynamic> connect({
-  //   required String portName,
-  //   required String emulation,
-  //   bool hasBarcodeReader = false,
-  // }) async {
-  //   dynamic result = await _channel.invokeMethod('connect', {
-  //     'portName': portName,
-  //     'emulation': emulation,
-  //     'hasBarcodeReader': hasBarcodeReader,
-  //   });
-  //   return result;
-  // }
+// static Future<dynamic> connect({
+//   required String portName,
+//   required String emulation,
+//   bool hasBarcodeReader = false,
+// }) async {
+//   dynamic result = await _channel.invokeMethod('connect', {
+//     'portName': portName,
+//     'emulation': emulation,
+//     'hasBarcodeReader': hasBarcodeReader,
+//   });
+//   return result;
+// }
 }
